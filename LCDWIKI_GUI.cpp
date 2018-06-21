@@ -52,11 +52,6 @@ uint16_t LCDWIKI_GUI::Get_Draw_color(void) const
 	return draw_color;
 }
 
-//void LCDKIWI_GUI::Set_Area(int16_t x1, int16_t y1, int16_t x2, int16_t y2)
-//{
-//	LCDKIWI_KBV::Set_Addr_Window(x1, y1, x2, y2);
-//}
-
 //draw a pixel point
 void LCDWIKI_GUI::Draw_Pixel(int16_t x, int16_t y)
 {
