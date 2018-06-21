@@ -430,11 +430,6 @@ void LCDWIKI_GUI::Fill_Triangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1,i
 	}
 }
 
-//void LCDKIWI_GUI::Set_Screen_Rotation(uint8_t r)
-//{
-//	LCDKIWI_KBV::Set_Rotation(r);
-//}
-
 //uint8_t LCDKIWI_GUI::Get_Screen_Rotation(void) const
 //{
 //	return LCDKIWI_KBV::Get_Rotation();
