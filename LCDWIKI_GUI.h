@@ -17,9 +17,9 @@
 #endif
 
 
-#if !defined(AVR)
-#include <avr/dtostrf.h>
-#endif
+//#if !defined(AVR)
+//#include <avr/dtostrf.h>
+//#endif
 
 #define LEFT 0
 #define RIGHT 9999
@@ -31,14 +31,14 @@ class LCDWIKI_GUI
 	LCDWIKI_GUI(void); // Constructor
 
     //These are defined by the subclass:
-	virtual uint16_t Color_To_565(uint8_t r, uint8_t g, uint8_t b);
-	virtual void Draw_Pixe(int16_t x, int16_t y, uint16_t color);
-	virtual void Fill_Rect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
-	virtual void Set_Addr_Window(int16_t x1, int16_t y1, int16_t x2, int16_t y2);
-	virtual void Push_Any_Color(uint16_t * block, int16_t n, bool first, uint8_t flags);
-	virtual int16_t Read_GRAM(int16_t x, int16_t y, uint16_t *block, int16_t w, int16_t h);
-	virtual int16_t Get_Height(void) const;
-  	virtual int16_t Get_Width(void) const;
+	virtual uint16_t Color_To_565(uint8_t r, uint8_t g, uint8_t b)=0;
+	virtual void Draw_Pixe(int16_t x, int16_t y, uint16_t color)=0;
+	virtual void Fill_Rect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)=0;
+	virtual void Set_Addr_Window(int16_t x1, int16_t y1, int16_t x2, int16_t y2)=0;
+	virtual void Push_Any_Color(uint16_t * block, int16_t n, bool first, uint8_t flags)=0;
+	virtual int16_t Read_GRAM(int16_t x, int16_t y, uint16_t *block, int16_t w, int16_t h)=0;
+	virtual int16_t Get_Height(void) const=0;
+  	virtual int16_t Get_Width(void) const=0;
 
 	//These exist only with LCDWIKI_GUI(no subclass overrides)
 	void Set_Draw_color(uint16_t color);

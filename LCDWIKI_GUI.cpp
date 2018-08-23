@@ -453,7 +453,7 @@ void LCDWIKI_GUI::Draw_Bit_Map(int16_t x, int16_t y, int16_t sx, int16_t sy, con
 	if(1 == scale)
 	{
 
-		Push_Any_Color(data, sx * sy, 1, 0);
+		Push_Any_Color((uint16_t *)data, sx * sy, 1, 0);
 	}
 	else 
 	{
@@ -606,11 +606,11 @@ size_t LCDWIKI_GUI::Print(uint8_t *st, int16_t x, int16_t y)
 {
 	int16_t pos;
 	uint16_t len;
-	const char * p = st;
+	const char * p = (const char *)st;
 	size_t n = 0;
 	if (x == CENTER || x == RIGHT) 
 	{
-		len = strlen(st) * 6 * text_size;		
+		len = strlen((const char *)st) * 6 * text_size;		
 		pos = (Get_Display_Width() - len); 
 		if (x == CENTER)
 		{
@@ -744,7 +744,7 @@ void LCDWIKI_GUI::Print_Number_Float(double num, uint8_t dec, int16_t x, int16_t
 	{
 		flag = true;
 	}
-	dtostrf(num, length, dec, st);
+	dtostrf(num, length, dec, (char *)st);
 	if(divider != '.')
 	{
 		while(i < sizeof(st))
