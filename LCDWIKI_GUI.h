@@ -17,7 +17,7 @@
 #endif
 
 
-#if defined(__AVR__) || defined(__arm__)
+#if !defined(CORE_TEENSY) && defined(__arm__)
 #include <avr/dtostrf.h>
 #endif
 
