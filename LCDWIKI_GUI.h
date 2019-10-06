@@ -7,7 +7,7 @@
 #include "WProgram.h"
 #endif
 
-#ifdef __AVR__
+#if defined(__AVR__) || defined(__arm__)
 #include <avr/pgmspace.h>
 #elif defined(ESP8266)
  #include <pgmspace.h>
@@ -17,9 +17,9 @@
 #endif
 
 
-//#if !defined(AVR)
-//#include <avr/dtostrf.h>
-//#endif
+#if !defined(CORE_TEENSY) && defined(__arm__)
+#include <avr/dtostrf.h>
+#endif
 
 #define LEFT 0
 #define RIGHT 9999
