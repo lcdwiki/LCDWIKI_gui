@@ -55,7 +55,7 @@ uint16_t LCDWIKI_GUI::Get_Draw_color(void) const
 //draw a pixel point
 void LCDWIKI_GUI::Draw_Pixel(int16_t x, int16_t y)
 {
-	Draw_Pixe(x, y, draw_color);
+	Draw_Pixel(x, y, draw_color);
 }
 
 //read color data for point(x,y)
@@ -575,7 +575,7 @@ void LCDWIKI_GUI::Draw_Char(int16_t x, int16_t y, uint8_t c, uint16_t color,uint
 			{
         		if (size == 1)
         		{
-        			Draw_Pixe(x+i, y+j, color);
+        			Draw_Pixel(x+i, y+j, color);
         		}
         		else 
 				{  
@@ -588,7 +588,7 @@ void LCDWIKI_GUI::Draw_Char(int16_t x, int16_t y, uint8_t c, uint16_t color,uint
 				{
 	        		if (size == 1) 
 	        		{
-	        			Draw_Pixe(x+i, y+j, bg);
+	        			Draw_Pixel(x+i, y+j, bg);
 	        		}
 	        		else 
 					{  

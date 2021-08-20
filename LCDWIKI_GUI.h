@@ -32,7 +32,7 @@ class LCDWIKI_GUI
 
     //These are defined by the subclass:
 	virtual uint16_t Color_To_565(uint8_t r, uint8_t g, uint8_t b)=0;
-	virtual void Draw_Pixe(int16_t x, int16_t y, uint16_t color)=0;
+	virtual void Draw_Pixel(int16_t x, int16_t y, uint16_t color)=0;
 	virtual void Fill_Rect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)=0;
 	virtual void Set_Addr_Window(int16_t x1, int16_t y1, int16_t x2, int16_t y2)=0;
 	virtual void Push_Any_Color(uint16_t * block, int16_t n, bool first, uint8_t flags)=0;
