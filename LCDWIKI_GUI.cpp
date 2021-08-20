@@ -469,20 +469,20 @@ void LCDWIKI_GUI::Draw_Bit_Map(int16_t x, int16_t y, int16_t sx, int16_t sy, con
 }
 
 //set text coordinate
-void LCDWIKI_GUI::Set_Text_Cousur(int16_t x, int16_t y)
+void LCDWIKI_GUI::Set_Text_Cords(int16_t x, int16_t y)
 {
 	text_x = x;
 	text_y = y;
 }
 
 //get text x coordinate
-int16_t LCDWIKI_GUI::Get_Text_X_Cousur(void) const
+int16_t LCDWIKI_GUI::Get_Text_X_Cords(void) const
 {
 	return text_x;
 }
 
 //get text y coordinate
-int16_t LCDWIKI_GUI::Get_Text_Y_Cousur(void) const
+int16_t LCDWIKI_GUI::Get_Text_Y_Cords(void) const
 {
 	return text_y;
 }
@@ -621,7 +621,7 @@ size_t LCDWIKI_GUI::Print(uint8_t *st, int16_t x, int16_t y)
 			x = pos - 1;
 		}
 	}
-    Set_Text_Cousur(x, y);
+    Set_Text_Cords(x, y);
 	while(1)
 	{
 		unsigned char ch = *(p++);//pgm_read_byte(p++);

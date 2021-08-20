@@ -62,9 +62,9 @@ class LCDWIKI_GUI
 	void Draw_Triangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1,int16_t x2, int16_t y2);
 	void Fill_Triangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1,int16_t x2, int16_t y2);
 	void Draw_Bit_Map(int16_t x, int16_t y, int16_t sx, int16_t sy, const uint16_t *data, int16_t scale);
-	void Set_Text_Cousur(int16_t x, int16_t y);
-	int16_t Get_Text_X_Cousur(void) const;
-	int16_t Get_Text_Y_Cousur(void) const;
+	void Set_Text_Cords(int16_t x, int16_t y);
+	int16_t Get_Text_X_Cords(void) const;
+	int16_t Get_Text_Y_Cords(void) const;
 	void Set_Text_colour(uint16_t color);
 	void Set_Text_colour(uint8_t r, uint8_t g, uint8_t b);
 	uint16_t Get_Text_colour(void) const;
