@@ -65,12 +65,12 @@ class LCDWIKI_GUI
 	void Set_Text_Cords(int16_t x, int16_t y);
 	int16_t Get_Text_X_Cords(void) const;
 	int16_t Get_Text_Y_Cords(void) const;
-	void Set_Text_colour(uint16_t color);
-	void Set_Text_colour(uint8_t r, uint8_t g, uint8_t b);
-	uint16_t Get_Text_colour(void) const;
-	void Set_Text_Back_colour(uint16_t color); 
-	void Set_Text_Back_colour(uint8_t r, uint8_t g, uint8_t b); 
-	uint16_t Get_Text_Back_colour(void) const;
+	void Set_Text_color(uint16_t color);
+	void Set_Text_color(uint8_t r, uint8_t g, uint8_t b);
+	uint16_t Get_Text_color(void) const;
+	void Set_Text_Back_color(uint16_t color); 
+	void Set_Text_Back_color(uint8_t r, uint8_t g, uint8_t b); 
+	uint16_t Get_Text_Back_color(void) const;
 	void Set_Text_Size(uint8_t s);
 	uint8_t Get_Text_Size(void) const;
 	void Set_Text_Mode(boolean mode);

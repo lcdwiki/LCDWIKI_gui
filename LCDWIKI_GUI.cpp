@@ -61,9 +61,9 @@ void LCDWIKI_GUI::Draw_Pixel(int16_t x, int16_t y)
 //read color data for point(x,y)
 uint16_t LCDWIKI_GUI::Read_Pixel(int16_t x, int16_t y)
 {
-	uint16_t colour;
-	Read_GRAM(x, y, &colour, 1, 1);
-	return colour;
+	uint16_t color;
+	Read_GRAM(x, y, &color, 1, 1);
+	return color;
 }
 
 //fill a rectangle
@@ -487,38 +487,38 @@ int16_t LCDWIKI_GUI::Get_Text_Y_Cords(void) const
 	return text_y;
 }
 
-//set text colour with 16bit color
-void LCDWIKI_GUI::Set_Text_colour(uint16_t color)
+//set text color with 16bit color
+void LCDWIKI_GUI::Set_Text_color(uint16_t color)
 {
 	text_color = color;
 }
 
-//set text colour with 8bits r,g,b
-void LCDWIKI_GUI::Set_Text_colour(uint8_t r, uint8_t g, uint8_t b)
+//set text color with 8bits r,g,b
+void LCDWIKI_GUI::Set_Text_color(uint8_t r, uint8_t g, uint8_t b)
 {
 	text_color = Color_To_565(r, g, b);
 }
 
-//get text colour
-uint16_t LCDWIKI_GUI::Get_Text_colour(void) const
+//get text color
+uint16_t LCDWIKI_GUI::Get_Text_color(void) const
 {
 	return text_color;
 }
 
-//set text background colour with 16bits color
-void LCDWIKI_GUI::Set_Text_Back_colour(uint16_t color)
+//set text background color with 16bits color
+void LCDWIKI_GUI::Set_Text_Back_color(uint16_t color)
 {
 	text_bgcolor = color;	
 }
 
-//set text background colour with 8bits r,g,b
-void LCDWIKI_GUI::Set_Text_Back_colour(uint8_t r, uint8_t g, uint8_t b)
+//set text background color with 8bits r,g,b
+void LCDWIKI_GUI::Set_Text_Back_color(uint8_t r, uint8_t g, uint8_t b)
 {
 	text_bgcolor = Color_To_565(r, g, b);
 }
 
-//get text background colour
-uint16_t LCDWIKI_GUI::Get_Text_Back_colour(void) const
+//get text background color
+uint16_t LCDWIKI_GUI::Get_Text_Back_color(void) const
 {
 	return text_bgcolor;
 }
