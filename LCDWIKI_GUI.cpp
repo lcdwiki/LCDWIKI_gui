@@ -548,54 +548,35 @@ boolean LCDWIKI_GUI::Get_Text_Mode(void) const
 }
 
 //draw a char
-void LCDWIKI_GUI::Draw_Char(int16_t x, int16_t y, uint8_t c, uint16_t color,uint16_t bg, uint8_t size, boolean mode)
-{
-	if((x >= Get_Width()) || (y >= Get_Height()) || ((x + 6 * size - 1) < 0) || ((y + 8 * size - 1) < 0))
-	{
-    	return;
-	}		
-  	if(c >= 176)
-  	{
+void LCDWIKI_GUI::Draw_Char(int16_t x, int16_t y, uint8_t c, uint16_t color,uint16_t bg, uint8_t size, boolean mode) {
+	if((x >= Get_Width()) || (y >= Get_Height()) || ((x + 6 * size - 1) < 0) || ((y + 8 * size - 1) < 0)) {
+        return;
+	} else if(c >= 176) {
 		c++; 
   	}
-	for (int8_t i=0; i<6; i++) 
-	{
-    	uint8_t line;
-    	if (i == 5)
-    	{
+
+    uint8_t line;
+
+	for (int8_t i = 0; i < 6; i++) {
+    	if (i == 5 || c == 0x0 || c == 0xFF) {
       		line = 0x0;
+    	} else {
+      		line = pgm_read_byte(lcd_font + (c * 5) + i);
     	}
-    	else
-    	{
-      		line = pgm_read_byte(lcd_font+(c*5)+i);
-    	}
-    	for (int8_t j = 0; j<8; j++) 
-		{
-      		if (line & 0x1) 
-			{
-        		if (size == 1)
-        		{
-        			Draw_Pixel(x+i, y+j, color);
-        		}
-        		else 
-				{  
-					Fill_Rect(x+(i*size), y+(j*size), size, size, color);
-        		}
-        	} 
-			else if (bg != color) 				
-			{
-				if(!mode)
-				{
-	        		if (size == 1) 
-	        		{
-	        			Draw_Pixel(x+i, y+j, bg);
-	        		}
-	        		else 
-					{  
-						Fill_Rect(x+i*size, y+j*size, size, size, bg);
-					}
-				}
-			}
+    	
+        for (int8_t j = 0; j < 8; j++) {
+            const bool lineState = line & 0x1;
+
+            if (lineState || (bg != color && !mode)) {
+                uint16_t currentColor = lineState ? color : bg;
+
+                if (size == 1) {
+                    Draw_Pixel(x + i, y + j, currentColor);
+                } else {  
+                    Fill_Rect(x + i * size, y + j * size, size, size, currentColor);
+                }
+            }
+
       		line >>= 1;
     	}
     }
