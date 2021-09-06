@@ -557,20 +557,21 @@ void LCDWIKI_GUI::Draw_Char(int16_t x, int16_t y, uint8_t c, uint16_t color,uint
         0x81 = °
         0x82 = ±
     */
+    const bool hasBackground = bg != color && !mode;
+    const bool isSupported = c >= 0x21 && c <= 0x82;
     
     if((x >= Get_Width()) || 
         (y >= Get_Height()) || 
         ((x + 6 * size - 1) < 0) || 
         ((y + 8 * size - 1) < 0) ||
-        (c >= 0x0 && c < 0x21) ||
-        c > 0x82) {
+        (!hasBackground && !isSupported)) {
         return;
 	}
 
     uint8_t line;
 
 	for (int8_t i = 0; i < 6; i++) {
-    	if (i == 5) {
+    	if (i == 5 || !isSupported) {
       		line = 0x0;
     	} else {
       		line = pgm_read_byte(lcd_font + (c * 5 - 33 * 5) + i);
@@ -579,7 +580,7 @@ void LCDWIKI_GUI::Draw_Char(int16_t x, int16_t y, uint8_t c, uint16_t color,uint
         for (int8_t j = 0; j < 8; j++) {
             const bool lineState = line & 0x1;
 
-            if (lineState || (bg != color && !mode)) {
+            if (lineState || hasBackground) {
                 uint16_t currentColor = lineState ? color : bg;
 
                 if (size == 1) {
