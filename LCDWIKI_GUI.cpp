@@ -549,19 +549,31 @@ boolean LCDWIKI_GUI::Get_Text_Mode(void) const
 
 //draw a char
 void LCDWIKI_GUI::Draw_Char(int16_t x, int16_t y, uint8_t c, uint16_t color,uint16_t bg, uint8_t size, boolean mode) {
-	if((x >= Get_Width()) || (y >= Get_Height()) || ((x + 6 * size - 1) < 0) || ((y + 8 * size - 1) < 0)) {
+	/*
+        Because I can't be fucked to support the official char IDs I'll just assign custom indexes:
+
+        0x7F = «
+        0x80 = »
+        0x81 = °
+        0x82 = ±
+    */
+    
+    if((x >= Get_Width()) || 
+        (y >= Get_Height()) || 
+        ((x + 6 * size - 1) < 0) || 
+        ((y + 8 * size - 1) < 0) ||
+        (c >= 0x0 && c < 0x21) ||
+        c > 0x82) {
         return;
-	} else if(c >= 176) {
-		c++; 
-  	}
+	}
 
     uint8_t line;
 
 	for (int8_t i = 0; i < 6; i++) {
-    	if (i == 5 || c == 0x0 || c == 0xFF) {
+    	if (i == 5) {
       		line = 0x0;
     	} else {
-      		line = pgm_read_byte(lcd_font + (c * 5) + i);
+      		line = pgm_read_byte(lcd_font + (c * 5 - 33 * 5) + i);
     	}
     	
         for (int8_t j = 0; j < 8; j++) {
