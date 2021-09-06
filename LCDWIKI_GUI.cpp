@@ -554,8 +554,8 @@ void LCDWIKI_GUI::Draw_Char(int16_t x, int16_t y, uint8_t c, uint16_t color,uint
 
         0x7F = «
         0x80 = »
-        0x81 = °
-        0x82 = ±
+        0x81 = ±
+        0x82 = °
     */
     const bool hasBackground = bg != color && !mode;
     const bool isSupported = c >= 0x21 && c <= 0x82;
