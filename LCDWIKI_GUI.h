@@ -32,7 +32,7 @@ class LCDWIKI_GUI
 
     //These are defined by the subclass:
 	virtual uint16_t Color_To_565(uint8_t r, uint8_t g, uint8_t b)=0;
-	virtual void Draw_Pixe(int16_t x, int16_t y, uint16_t color)=0;
+	virtual void Draw_Pixel(int16_t x, int16_t y, uint16_t color)=0;
 	virtual void Fill_Rect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)=0;
 	virtual void Set_Addr_Window(int16_t x1, int16_t y1, int16_t x2, int16_t y2)=0;
 	virtual void Push_Any_Color(uint16_t * block, int16_t n, bool first, uint8_t flags)=0;
@@ -62,15 +62,15 @@ class LCDWIKI_GUI
 	void Draw_Triangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1,int16_t x2, int16_t y2);
 	void Fill_Triangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1,int16_t x2, int16_t y2);
 	void Draw_Bit_Map(int16_t x, int16_t y, int16_t sx, int16_t sy, const uint16_t *data, int16_t scale);
-	void Set_Text_Cousur(int16_t x, int16_t y);
-	int16_t Get_Text_X_Cousur(void) const;
-	int16_t Get_Text_Y_Cousur(void) const;
-	void Set_Text_colour(uint16_t color);
-	void Set_Text_colour(uint8_t r, uint8_t g, uint8_t b);
-	uint16_t Get_Text_colour(void) const;
-	void Set_Text_Back_colour(uint16_t color); 
-	void Set_Text_Back_colour(uint8_t r, uint8_t g, uint8_t b); 
-	uint16_t Get_Text_Back_colour(void) const;
+	void Set_Text_Cords(int16_t x, int16_t y);
+	int16_t Get_Text_X_Cords(void) const;
+	int16_t Get_Text_Y_Cords(void) const;
+	void Set_Text_color(uint16_t color);
+	void Set_Text_color(uint8_t r, uint8_t g, uint8_t b);
+	uint16_t Get_Text_color(void) const;
+	void Set_Text_Back_color(uint16_t color); 
+	void Set_Text_Back_color(uint8_t r, uint8_t g, uint8_t b); 
+	uint16_t Get_Text_Back_color(void) const;
 	void Set_Text_Size(uint8_t s);
 	uint8_t Get_Text_Size(void) const;
 	void Set_Text_Mode(boolean mode);

@@ -55,15 +55,15 @@ uint16_t LCDWIKI_GUI::Get_Draw_color(void) const
 //draw a pixel point
 void LCDWIKI_GUI::Draw_Pixel(int16_t x, int16_t y)
 {
-	Draw_Pixe(x, y, draw_color);
+	Draw_Pixel(x, y, draw_color);
 }
 
 //read color data for point(x,y)
 uint16_t LCDWIKI_GUI::Read_Pixel(int16_t x, int16_t y)
 {
-	uint16_t colour;
-	Read_GRAM(x, y, &colour, 1, 1);
-	return colour;
+	uint16_t color;
+	Read_GRAM(x, y, &color, 1, 1);
+	return color;
 }
 
 //fill a rectangle
@@ -469,56 +469,56 @@ void LCDWIKI_GUI::Draw_Bit_Map(int16_t x, int16_t y, int16_t sx, int16_t sy, con
 }
 
 //set text coordinate
-void LCDWIKI_GUI::Set_Text_Cousur(int16_t x, int16_t y)
+void LCDWIKI_GUI::Set_Text_Cords(int16_t x, int16_t y)
 {
 	text_x = x;
 	text_y = y;
 }
 
 //get text x coordinate
-int16_t LCDWIKI_GUI::Get_Text_X_Cousur(void) const
+int16_t LCDWIKI_GUI::Get_Text_X_Cords(void) const
 {
 	return text_x;
 }
 
 //get text y coordinate
-int16_t LCDWIKI_GUI::Get_Text_Y_Cousur(void) const
+int16_t LCDWIKI_GUI::Get_Text_Y_Cords(void) const
 {
 	return text_y;
 }
 
-//set text colour with 16bit color
-void LCDWIKI_GUI::Set_Text_colour(uint16_t color)
+//set text color with 16bit color
+void LCDWIKI_GUI::Set_Text_color(uint16_t color)
 {
 	text_color = color;
 }
 
-//set text colour with 8bits r,g,b
-void LCDWIKI_GUI::Set_Text_colour(uint8_t r, uint8_t g, uint8_t b)
+//set text color with 8bits r,g,b
+void LCDWIKI_GUI::Set_Text_color(uint8_t r, uint8_t g, uint8_t b)
 {
 	text_color = Color_To_565(r, g, b);
 }
 
-//get text colour
-uint16_t LCDWIKI_GUI::Get_Text_colour(void) const
+//get text color
+uint16_t LCDWIKI_GUI::Get_Text_color(void) const
 {
 	return text_color;
 }
 
-//set text background colour with 16bits color
-void LCDWIKI_GUI::Set_Text_Back_colour(uint16_t color)
+//set text background color with 16bits color
+void LCDWIKI_GUI::Set_Text_Back_color(uint16_t color)
 {
 	text_bgcolor = color;	
 }
 
-//set text background colour with 8bits r,g,b
-void LCDWIKI_GUI::Set_Text_Back_colour(uint8_t r, uint8_t g, uint8_t b)
+//set text background color with 8bits r,g,b
+void LCDWIKI_GUI::Set_Text_Back_color(uint8_t r, uint8_t g, uint8_t b)
 {
 	text_bgcolor = Color_To_565(r, g, b);
 }
 
-//get text background colour
-uint16_t LCDWIKI_GUI::Get_Text_Back_colour(void) const
+//get text background color
+uint16_t LCDWIKI_GUI::Get_Text_Back_color(void) const
 {
 	return text_bgcolor;
 }
@@ -548,54 +548,48 @@ boolean LCDWIKI_GUI::Get_Text_Mode(void) const
 }
 
 //draw a char
-void LCDWIKI_GUI::Draw_Char(int16_t x, int16_t y, uint8_t c, uint16_t color,uint16_t bg, uint8_t size, boolean mode)
-{
-	if((x >= Get_Width()) || (y >= Get_Height()) || ((x + 6 * size - 1) < 0) || ((y + 8 * size - 1) < 0))
-	{
-    	return;
-	}		
-  	if(c >= 176)
-  	{
-		c++; 
-  	}
-	for (int8_t i=0; i<6; i++) 
-	{
-    	uint8_t line;
-    	if (i == 5)
-    	{
+void LCDWIKI_GUI::Draw_Char(int16_t x, int16_t y, uint8_t c, uint16_t color,uint16_t bg, uint8_t size, boolean mode) {
+	/*
+        Because I can't be fucked to support the official char IDs I'll just assign custom indexes:
+
+        0x7F = «
+        0x80 = »
+        0x81 = ±
+        0x82 = °
+    */
+    const bool hasBackground = bg != color && !mode;
+    const bool isSupported = c >= 0x21 && c <= 0x82;
+    
+    if((x >= Get_Width()) || 
+        (y >= Get_Height()) || 
+        ((x + 6 * size - 1) < 0) || 
+        ((y + 8 * size - 1) < 0) ||
+        (!hasBackground && !isSupported)) {
+        return;
+	}
+
+    uint8_t line;
+
+	for (int8_t i = 0; i < 6; i++) {
+    	if (i == 5 || !isSupported) {
       		line = 0x0;
+    	} else {
+      		line = pgm_read_byte(lcd_font + (c * 5 - 33 * 5) + i);
     	}
-    	else
-    	{
-      		line = pgm_read_byte(lcd_font+(c*5)+i);
-    	}
-    	for (int8_t j = 0; j<8; j++) 
-		{
-      		if (line & 0x1) 
-			{
-        		if (size == 1)
-        		{
-        			Draw_Pixe(x+i, y+j, color);
-        		}
-        		else 
-				{  
-					Fill_Rect(x+(i*size), y+(j*size), size, size, color);
-        		}
-        	} 
-			else if (bg != color) 				
-			{
-				if(!mode)
-				{
-	        		if (size == 1) 
-	        		{
-	        			Draw_Pixe(x+i, y+j, bg);
-	        		}
-	        		else 
-					{  
-						Fill_Rect(x+i*size, y+j*size, size, size, bg);
-					}
-				}
-			}
+    	
+        for (int8_t j = 0; j < 8; j++) {
+            const bool lineState = line & 0x1;
+
+            if (lineState || hasBackground) {
+                uint16_t currentColor = lineState ? color : bg;
+
+                if (size == 1) {
+                    Draw_Pixel(x + i, y + j, currentColor);
+                } else {  
+                    Fill_Rect(x + i * size, y + j * size, size, size, currentColor);
+                }
+            }
+
       		line >>= 1;
     	}
     }
@@ -621,7 +615,7 @@ size_t LCDWIKI_GUI::Print(uint8_t *st, int16_t x, int16_t y)
 			x = pos - 1;
 		}
 	}
-    Set_Text_Cousur(x, y);
+    Set_Text_Cords(x, y);
 	while(1)
 	{
 		unsigned char ch = *(p++);//pgm_read_byte(p++);
